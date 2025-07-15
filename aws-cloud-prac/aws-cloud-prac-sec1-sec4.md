@@ -88,7 +88,8 @@ Domain 4: Billing, Pricing, Support
 - **AWS Global Network** manages connections, bandwith and latency between regions
 
 - Create **subnets** (public or private) also for launching resources
-- Other ways:
+
+Other ways:
 - AWS Outposts (hardware in non-AWS corporate data center); e.g., EC2 can be run on premises, connected back to the AWS region
 - AWS Local Zones --- like AZs, get resources closer to where resources are being used/access, pay more for it but lower latency (e.g., big metropolitan areas)
 - AWS Wavelength Zones --- deploying resources over the 5G network (e.g., for a mobile application); improve latency as well
@@ -156,27 +157,30 @@ Deploying Services Globally
 - Service for authentication and authorization
 - IAM Principals must be authenticated to send requests (with a few exceptions)
 - A **principal** is a person or app that can make a request for an action or operation on an AWS resource
-- Authentication ("you are who you say you are"). Authorization ("you're allowed or not allowed to use these resources").
+- Authentication ("you are who you say you are").
+- Authorization ("you're allowed or not allowed to use these resources").
 - AWS determines whether to authorize the request (allow/deny)
 - **Identity-based policies** and **resource-based policies**
 - Actions are authorized on AWS resources
+
+Key Terms:
 - **User:** an individual person/account
 - **User Groups:** group of people with similar job roles, etc. that require the same level of access
 - **Policies:** user gains permissions applied to the group through the policy. **ID-based policies** can be applied to users, groups and role.
 - **Roles:** an identity which has permissions assigned to it via a policy, you can assume the role and take on those permissions. Think of it as switching hats (sys ops, dev, etc.), and you get access to different resources based on the role you have at a given time (the "hat" you're wearing).
 
-- **IAM Users**
+**IAM Users**
 - Account **Root User** --- full permissions. **Best practice** to avoid using this, and enable MFA.
 - AWS IAM --- up to 5000 individual user acoounts can be created. **No permissions by default.** Must be added.
 - e.g., Andrea (**see slides/diagram**). Amazon Resource Name (ARN) is part of a unique identifier
 - Authentication can occur via Andrea's username/password in Amazon Management Console or access keys for API/CLI
 
-- **IAM User Groups**
+**IAM User Groups**
 - We can add many users to one group; a user can also be in more than one group
 - If a user in in multiple groups, they get multiple sets of permissions
 - Easy way to apply **permissions** to users using **policies**
 
-- **IAM Authentication Methods**
+**IAM Authentication Methods**
 - User provides username, PW and (optional) MFA through AWS Management Console
 - Through the CLI and API --- credentials --> access key ID and secrete access key to authenticate a user to the AWS API
 - Access keys are for **programmatic access**
@@ -211,7 +215,7 @@ Deploying Services Globally
 
 ## 23. Switching IAM Roles
 - Demo --- creating a user Joe, creating a role (ec2-role), then granting permissions
-- Copy ARN from the ec2-role Role in IAM (where you're admin, not Joe). Paste it into the JSON object on the "Resource" property
+- Copy ARN from the ec2-role Role in IAM (where you're admin, not Joe). Paste it into the JSON object on the "Resource" property (object is located in the Permissions policies card, click the + to expand & see the policy for that role as JSON)
 - Back in IAM as admin (Chris), go to Users --> click Joe --> Add permissions drop down --> choose JSON, paste in object --> title it stsAssumeRole
 
 {
@@ -226,5 +230,41 @@ Deploying Services Globally
 - Can switch roles in the upper right corner drop down
 
 ## 24. IAM Identity Center
-- 
+- Successor to AWS SSO (single sign-on). **See slide deck diagram.**
+- Identity sources can be the IAM ID Center, an Active Directory (self-managed), or standard providers using SAML 2.0
+- W/ an active directory, there's an AD Connector or AWS Managed Microsoft AD to facilitate this management of IDs and SSO
+- There are built-in SSO integrations to business apps
+- Also get SSO to different AWS accounts, including ones in diff AWS organizations
+- IAM vs IAM Identity Center chart (**see slide deck diagram/chart**). Latter allows for more user-friendly, simplified SSO and access to AWS and non-AWS applications
+Use cases:
+- IAM --- managing AWS resources and permissions manually, fine-grained control; good for creating, managing IAM users and roles within AWS; you can federate (integrate) with external IdPs (identity providers) for SSO to AWS services, but more complex
+- Identity Center --- SSO to AWS and non-AWS applications; centralized, so easier for a more complex environment; integrates with external directory services; streamlines acess to business apps and portals
 
+## 25. IAM Identity Center in Action
+- Demo --- created an organization in AWS, enabled ID Center, created two permission sets
+- Created a group, then a user (Chris)
+- Then, in IAM Identity Center (as Chris) --> Multi-account permissions (left side) --> AWS accounts
+- Assign users and groups, permissions sets (did both); back under Multi-account permissions / AWS accounts, you can see the permissions sets listed (AdministratorAccess and ViewOnlyAccess)
+- Went to email associated with that new user, clicked Accept Invitation, set up a new password and MFA
+- Chris, R.A.; used built-in auth
+- After signing in as Chris w/ newly created password, taken to AWS access portal page where you can choose the two roles by clicking on links; you can log into AWS with either permission set
+- In ID Center (as admin), you can find & copy/use the AWS access portal URL for signing in (good to bookmark, supply to team, etc.)
+
+## 26. AWS IAM Best Practicies
+- Require human users to use federation with an identity provider to access AWS using temporary credentials (e.g., using Identity Center); current companies, etc. will keep using IAM with users, organizations, etc. But AWS is nudging new companies, people to do use Identity Center.
+- Require workloads to use tmeporary cedentials with IAM roles to access AWS (e.g., don't store access keys in applications, configure them to use roles instead, so that they gain temporary access through a security token service)
+- Require multi-factor authentication (MFA)
+- Rotate access keys regularly for use cases that require long-term credentials
+- Safeguard your root user credentials, don't use them for everyday tasks (companies tend to set this up very securly, strong password and multi-factor auth, then everybody gets and admin account --- in review, don't use the root user acccount day-to-day)
+- Apply least-privilege permissions --- i.e., only what they need / what's required to do their job, not more
+- Get started with AWS managed policies (good place to start since they're made fo ryou), and move toward least-privilege permissions
+- Use IAM Access Analyzer to generate least-privilege policies based on access activity by users (tool built into IAM; which API calls are they making / interacting with, design policies accordingly / in a custom way)
+- Regularly review & remove users, roles, permissions, policies and credentials
+- Use conditions in IAM policies to further restrict access (e.g., access only from a range of company approved IP addresses)
+- Verify public and cross-account access to resources with IAM Access Analyzer
+- Use IAM Access Analyzer to validate your IAM policies for secure, functional permissions for your company
+- Establish permissions guardrails across multiple accounts (e.g., use AWS Organizations and Control Tower for added security)
+- Use permission boundaries to delegate permissions management within an account (e.g., gives a max amount of permissions that can be used by a given user, like a ceiling or max)
+
+## 27. Exam Cram
+- Review video
