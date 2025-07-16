@@ -129,9 +129,9 @@ Deploying Services Globally
 - Takeaway for AWS --- every action you take is an API call
 
 ## 15. AWS Pricing Fundamentals
-- **Compute** --- the amount of resources such as CPU and RAM and **duration** (per minute basis)
+- **AWS Compute** --- the amount of resources such as CPU and RAM and **duration** (per minute basis)
 - When you shut down a service, you're no longer paying the CPU and RAM but you might still be paying for storage
-- **Storage** --- based on quantity of data **stored** or **allocated**
+- **AWS Storage** --- based on quantity of data **stored** or **allocated**
 - e.g., S3 --- you have a gigabyte, you pay for a gigabyte; e.g., for EC2, you pay for the full volume of that storage (whether or not it's full)
 - **Outbound Data Transfer** --- the quantity of data transferred **out** of cloud services. You don't pay to move it into cloud, but you pay to store & move it out of an AZ or Region. Businesses can get into tricky spots with this.
 
@@ -268,3 +268,5 @@ Use cases:
 
 ## 27. Exam Cram
 - Review video
+- Mentions a couple of things not covered in the videos (likely recycled from earlier versions of course?)
+
