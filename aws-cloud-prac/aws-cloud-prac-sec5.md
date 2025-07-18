@@ -73,6 +73,68 @@ RE: connect to WindowsServer
 - **NOTE:** you pay for the storage allocated to a server, but not paying for the running compute or memory of a terminated server.
 
 ## 33. Amazon EC2 User Data and Metadata
+- EC2 Console --> you can configure / run code (script) as instance is launched to track user data
+- Metadata --- info about the EC2 instance available at http://169.254.169.254/latest/meta-data
+- Can run a command (curl command followed by the URL) with this URL (doesn't connect to a network/internet, just a path that locally tells you about the instance)
+- Example he gives of a couple commands---adds more to the end of the URLs, you can get the public or private IP address for that instance
+- **User data** --> run commands when system is starting only (limited to 16 kb)
+- **Metadata** --> returns info about the instance that is recorded locally
 
-- Testing a new commit
-- Do what you can, with what you have, where you are. ~ T.R.
+## 34. Create a Website with User Data
+- Launching a Linux instance with a customized web server
+- Copies user-data-web-server.sh raw code from the amazon-ec2 directory in the course repo (contains package/dependencies, starts a custom Apache server, fetches the AZ info --> assigns to a variable upon authentication, and then AZ info is fetched and gets assigned to that variable), HTML file is created
+- EC2 --> launch instance --> choose instance type, key pair (skipped for this demo), i.e. the usual set up steps --> choose a Security group (we chose our previously made WebAccess, will reconfigure this later) --> Advanced details section
+- Paste in code or upload file for customized server
+- Security tab for that instance, created a new rule (HTTP access for anywhere; port 80 gets assigned for a web page)
+- Click on the public IPv4 address (Details tab when looking at instances on Instances page), opens up the web page
+- Timed out in regular browser, but works in Incognito window... :P
+- **Takeaway:** you can run scripts when launching an EC2 instance using the User data section
+
+## 35. Access Keys and IAM Roles with EC2
+- EC2 instance in a public subnet in this example, trying to securely access an S3 storage bucket
+- AWS CLI is configured with access keys for the instance (for security)
+- Access keys are associated with an IAM user account; recall permissions are assigned to the IAM user
+- Whatever commands run on the instance will pick up/have same permissions as the user
+- Problem: access keys are long-term credentials and if compromised, it's a real security risk; they are stored in plain text on the instance itself / on the computer. (!)
+- Solution: IAM Roles with policies assigned to them. This allows permissions to be supplied to the EC2 instance without the exposure of credentials (they aren't stored on the instance itself)
+- Doing this, the instance assumes the IAM Role to access the S3 bucket---use this method whenever possible (preferable to using a user's long-term access keys)
+- Recall: IAM Roles is using AWS STS (Security Token Service) in order to get credentials, but they're shorter term; the instance will automatically re-negotiate with STS to get refreshed credentials
+
+## 36. Practice with Access Keys and IAM Roles
+- Connecting to the previously made LinuxServer we made
+- We run command aws s3 ls ---> gives us an "Unable to locate credentials..." ---> verifying that we don't have permissions
+- Recall: access keys is one method and Roles the other/preferred
+
+- **Demo using access keys:** IAM ---> Users, choose a user (Chris) --> click Security details --> Access Keys section, click Create Access Key --> Use case is Command LIne Interface (CLI) (ignore the warning, we know it's bad, it's just for demo :P ).
+- This is essentially like the username and password (Access key and Secret access key). Recall this is what you can download as a .csv file
+- We run aws configure, enter the credentials; region is us-east-1; press enter to get a clean line, we run aws s3 ls again, no error but nothing happens means you have permissions
+- Created a bucket from the command line (aws s3 mb s3://mybucket-randomtextgoeshere); check with aws s3 ls and you'll see a bucket created
+- We run cd ~/.aws --> goes up a level --> we run ls to see directories --> there are 2 (config and credentials)
+- We run cat config --> see our default region; we run cat credentials --> oops, you can see credentials in plain text (if there was a server compromise, and they found this, then your entire AWS account is compromised)
+- So, we change directories up with cd .. --> we run pwd to get to 'home base' user directory --> we run rm -rf ~/.aws/* to delete all files stored on the instance, so the credentials (access key and secret access key) aren't stored there anymore. Check this is correct by running aws s3 list, and we get that same "Unable to located credentials..." message, as expected.
+- Went back into IAM and deleted the access key (deactivated it first, then deleted)
+
+- **The proper way: demo using IAM Roles**
+- IAM ---> Roles, create role ---> Use case is AWS service, EC2 --> search/select AmazonS3ReadOnlyAccess
+- Look at the **Trust policy**, recall that it defines who or what assumes the role (property on the JSON object "Action": "sts:AssumeRole" is the part that says a person with this role has access to whatever it's for, in this example S3 read-only access; the "Principal" property defines the who or what gets this access, in this example it's the service EC2 that we're giving access to)
+- Go back to EC2, select the instance (LinuxServer) --> Actions --> Security, choose Modify IAM role on drop down
+- Select S3ReadOnly for IAM role, then click Update IAM role button
+- Back in the LinuxServer CLI, we run aws s3 ls command --> we see the bucket with random text name that we made in the first demo (access keys method).
+- **Takeaway:** creating a new Role with a policy that grants the kind of permission you want is safer, automatic (managed by AWS) and more importantly, credentials are not stored on the EC2 instance or on the computer itself in plain text, where they could be compromised.
+
+## 37. AWS Batch
+- 
+
+## 38. Amazon LightSail
+
+## 39. Docker Containers and Microservices
+
+## 40. Amazon Elastic Container Service (ECS)
+
+## 41. Launch Docker COntainers on AWS Fargate
+
+## 42. Exam Cram
+
+## Quiz 1: AWS Compute Services
+
+## 43. Cheat Sheets
