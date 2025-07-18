@@ -74,4 +74,5 @@ RE: connect to WindowsServer
 
 ## 33. Amazon EC2 User Data and Metadata
 
-- 
+- Testing a new commit
+- Do what you can, with what you have, where you are. ~ T.R.
