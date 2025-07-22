@@ -1,6 +1,8 @@
 # AWS Certified Cloud Practitioner Certification (CLF - C02 Exam) - Notes, Research
 
-# Section 1 - Intro.
+# Section 1
+
+## 1. Intro.
 
 ## 2. The CLF-C02 Exam
 

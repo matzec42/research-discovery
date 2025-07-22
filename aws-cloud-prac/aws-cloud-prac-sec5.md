@@ -79,6 +79,7 @@ RE: connect to WindowsServer
 - Example he gives of a couple commands---adds more to the end of the URLs, you can get the public or private IP address for that instance
 - **User data** --> run commands when system is starting only (limited to 16 kb)
 - **Metadata** --> returns info about the instance that is recorded locally
+-**NOTE:** neither are encrypted! BE AWARE
 
 ## 34. Create a Website with User Data
 - Launching a Linux instance with a customized web server
@@ -123,18 +124,109 @@ RE: connect to WindowsServer
 - **Takeaway:** creating a new Role with a policy that grants the kind of permission you want is safer, automatic (managed by AWS) and more importantly, credentials are not stored on the EC2 instance or on the computer itself in plain text, where they could be compromised.
 
 ## 37. AWS Batch
-- 
+- A batch workload --- when running a large job with lots of resources, you can launch a Batch Job
+- A **job** is a unit of work such as a shell script or executable or Docker container iamge
+- You create a Job Definition, it goes into a Job Queue, then into a Batch Compute Environment where it gets run
+- It's a service that allows you to run batched workloads, it's a managed service so it does a lot of this for you.
+- Provisions the compute you need to do so. Launches, manages, and terminates resources as required (EC2 and ECS/Fargate)
+- Managed or unmanaged resources to run the job (managed = AWS does it for you)
 
 ## 38. Amazon LightSail
+- Similar to EC2, gives you ability to run virtual servers in the cloud.
+- Difference is that the interface is simpler for those w/o background in tech
+- Amazon calls it its "Simple Cloud Server" --- less feature rich but cheaper than EC2 (e.g., you don't get auto scaling, but you do get load balancing)
+- You can get pre-configured services for compute, storage, and network services
+- Can connect in via SSH (secure shell or, for Windows instances, remote desk protocol or RDP); can access Amazon VPC (Virtual Private Cloud, where you can connect with other AWS services privately)
+- On **exam**, this comes up when asked about use cases for which service for users who are inexperienced w/ tech or don't need lots of computing power or AWS connectivity (a few dozen instances or fewer)
+- Good for blogs, websites, simple web apps or e-commerce
 
 ## 39. Docker Containers and Microservices
+- Review of a virtual server (physical server, hypervisor, virtual machine(s), OS and applications)
+- Containerization: server, OS, Docker Engine, containers
+- A **container** includes all the code, settings and dependencies for running the application(s)
+- Each container is isolated from other containers; they start up very quickly b/c you're not booting up an operating system for every one / less overhead & less resources 
+- Containers are very efficient & rapid
+- Review: Docker images; Docker Hub (cloud-based registry service for sharing container images and automating workflows)
+- Containers are lightweight b/c they share the host system's kernel
+- Ideal for microservices and cloud-native applications
+
+- **Cloud-Native Applications**
+- **Microservices artchitecture** are structure as a collection of loosely coupled independently deployable services, each running its own processes. **See slide diagram**
+- Isolated, elastic, cost efficient, and secure
+- Updating one component of the application doesn't impact the others or stop them from running
+- Programmable communication between services with APIs
+- **Microservices Attributes / Benefits:**
+- Use of APIs --> easier integrations b/w app components, assists with loose couplings/less interdependencies (contains failures)
+- Independently deployable blocks of code --> can be scaled and maintained independently
+- Business-oriented architecture --> development organized around business capabilities; teams may be cross-functional and services may be reused
+- Flexible use of technologies --> each microservice can be written using diff. tech (e.g., programming langauges), you still have ability to communicate via APIs
+- Speed and agility --> fast to deploy, update; easy to include high availability and fault tolerance for each microservice (AWS managed means they handle a lot of this;  you just focus on choosing and setting up what you need)
 
 ## 40. Amazon Elastic Container Service (ECS)
+- For this, you deploy an Amazon ECS **cluster** (a logical grouping of tasks or services)
+- An **ECS Task** is running a Docker container; an ECS Task is created from a **Task Definition** (looks like a JS object; e.g., defines layers of the services, things like memory and CPU, etc.). ECS containers are known as tasks.
+- Docker **images** can be stored in Amazon ECR; when we start up a container, it pulls the image from the **ECR (Elastic Container Registry)**; they can also be in & pulled from other repos like Docker Hub
+- **ECS Services** are used to maintain a desired count of tasks; similar to EC2 running a desired count of tasks (auto scaling)
+- ECS Container Instance --- exists or doesn't depending on how you're using ECS.
 
-## 41. Launch Docker COntainers on AWS Fargate
+**Amazon ECS Key Features:**
+- Serverless with AWS Fargate - managed for you and fully scalable
+- Fully managed container orchestration - control plan is managed for you
+- Docker support - run and manage Docker containers w/ integration into the Docker Compose CLI
+- Windows container support - ECS support management of Windows containers
+- Elastic Load Balancing integration - distribute traffic across containers using ALB (application load balancing) or NLB (network load balancing)
+- Amazon ECS Anywhere - enables the use of Amazon ECS control plane to manage on-premises implementations
+
+**Amazon ECS Components:** (see table on **slide deck**)
+- Cluster
+- Container instance
+- Task Definition
+- Task
+- Image
+- Service
+
+**Amazon ECS Images**
+- Containers created from read-only templates (images)
+- Review: images are buitl from a Dockerfile
+- Images are built from a Dockerfile
+- Only Docker containers are supported on ECS
+- Images are stored in a registry (Amazon ECS or DockerHub) 
+- ECR is a managed AWS Docker registry service that is secure, scalable and reliable
+- ECR supports private Docker repos w/ resource-based permissions using AWS IAM in order to access repos, images
+- Works w/ Docker CLI to push, pull and manage images
+
+- **Amazon ECS Tasks and Task Definitions**
+- A task def'n is required to run Docker containers in Amazon ECS
+- A task def'n is a text file in JSON format; can describe up to 10 containers
+- Task def'ns use Docker images to launch containers
+
+**Launc Types - EC2 and Fargate**
+- **ECS EC2 Cluster** --- registry sthat supports ECR, DockerHub, or self-hosted
+- You explicitly provision EC2 instances, you're responsible for managing EC2 instances; charged per running EC2 instance; supports EFS, FSx, and EBS integration
+- You handle cluster optimization (e.g., scaling the container instances), but you have more granular control of your infrastructure
+**ECS Fargate Cluster** --- automatically provisions resources for you
+- Only supports EFS for integration; charged for running tasks; Fargate provisions and manages the compute; Fargate handles clusteer optimizations, meaning less control; but serverless / less infrastructure you have to manage
+- See slide deck for **ECS and IAM Roles**
+- Gives an example of a **container instance IAM role** (giving permissions to the host) and its policy, granting some permissions to differents aspects of the ECS service
+- **ECS task IAM role** provides permissions to the container itself
+- RE: Fargate Launch Type --- the container instance role is replaced with the **Task Execution Role**, which provides the permissions for executing the task (that is, the container and all the code, etc. that's in it). Still need task IAM role to grant permissions to grant access to other AWS services.
+
+## 41. Launch Docker Containers on AWS Fargate
+- Demo --- deploying a Docker container on the AWS Fargate service (that is, a serverless implementation of ECS)
+-**NOTE:** --- common for a cluster to fail to build on first attempt; view it in AWS Cloud Formation, delete it, then re-try, it then works. Weird, but it's been a thing for a long time like that apparently!
+- Tasks tab --- you can create or view individual tasks (containers, that is)
+- Infrastructure --- not really relevant with Fargate since it's serverless and managed, but if you did an EC2 Cluster launch type (the one where you have granular control), you could manage your infrastructure; metrics and scheduling tasks too
+- Go to Task definitions (left side nav) --> Create a new task defintion
+- RE: Task role ---> not done in this demo, but important for allowing containers in the task to make API requests to other AWS services
+- Log collection is useful (Cloud Watch)
+- We created and ran (then terminated/ended) a new task; tested it by going to the public IPv4 URL from the task's overview
+- Then we created a service --- Clusters --> Services tab, create --> change the settings; we changed "desired tasks" to 2, indicating we want up to 2 tasks running max at a time
+- Load balancing and service auto-scaling are optional (they use AWS Elastic Beanstalk and Cloud Watch to do this)
 
 ## 42. Exam Cram
+- Review video
 
 ## Quiz 1: AWS Compute Services
 
 ## 43. Cheat Sheets
+- Log into Digital Cloud Training acct. to view (on their website)
