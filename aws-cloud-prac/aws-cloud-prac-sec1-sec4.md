@@ -128,7 +128,7 @@ Deploying Services Globally
 - Every action you do is an API call to the AWS API
 - Review of client-server relationship and APIs
 - Flight aggregator (Momondo or Skyscanner) example; user searches on such a website, site makes API calls to airline websites **see diagram**
-- Takeaway for AWS --- every action you take is an API call
+- **Takeaway:** for AWS --- every action you take is an API call
 
 ## 15. AWS Pricing Fundamentals
 - **AWS Compute** --- the amount of resources such as CPU and RAM and **duration** (per minute basis)

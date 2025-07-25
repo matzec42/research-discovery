@@ -201,7 +201,7 @@ RE: connect to WindowsServer
 - Task def'ns use Docker images to launch containers
 
 **Launc Types - EC2 and Fargate**
-- **ECS EC2 Cluster** --- registry sthat supports ECR, DockerHub, or self-hosted
+- **ECS EC2 Cluster** --- registry that supports ECR, DockerHub, or self-hosted
 - You explicitly provision EC2 instances, you're responsible for managing EC2 instances; charged per running EC2 instance; supports EFS, FSx, and EBS integration
 - You handle cluster optimization (e.g., scaling the container instances), but you have more granular control of your infrastructure
 **ECS Fargate Cluster** --- automatically provisions resources for you
@@ -218,7 +218,7 @@ RE: connect to WindowsServer
 - Infrastructure --- not really relevant with Fargate since it's serverless and managed, but if you did an EC2 Cluster launch type (the one where you have granular control), you could manage your infrastructure; metrics and scheduling tasks too
 - Go to Task definitions (left side nav) --> Create a new task defintion
 - RE: Task role ---> not done in this demo, but important for allowing containers in the task to make API requests to other AWS services
-- Log collection is useful (Cloud Watch)
+- Log collection is useful (**Cloud Watch**)
 - We created and ran (then terminated/ended) a new task; tested it by going to the public IPv4 URL from the task's overview
 - Then we created a service --- Clusters --> Services tab, create --> change the settings; we changed "desired tasks" to 2, indicating we want up to 2 tasks running max at a time
 - Load balancing and service auto-scaling are optional (they use AWS Elastic Beanstalk and Cloud Watch to do this)
