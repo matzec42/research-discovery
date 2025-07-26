@@ -117,9 +117,25 @@
 - S3 has some pre-made supported transitions; see Resources folder linked to the video for more
 
 ## 55. Configure Replication and Lifecycle
-- 
+- **Demo:** we'll make two S3 buckets, walk through same region replication
+- Created buckets, enable versioning for both
+
+- RE: Replication (Same Region in this demo):
+- **Created IAM Role** which will be assumed by S3 in order to gain permissions to replicate the data. IAM --> Roles --> Create role --> choose Custom trust policy, add the policy (JSON object) from the course repo
+- Then went back to the created role (SSR-S3) and in Permissions, choose Create inline policy from one of the drop downs
+- Grabbed the s3-replications-permissions.json from the course repo, paste the S3 source bucket and destination bucket names on the "Resource" properties on the JSON object. Leave the /* on the end of the ARNs
+- Back in the source Bucket --> Management section --> Create replication rule
+- When creating the rule, we applied it to all object sin bucket, desintation as the destination bucket we made earlier. We chose the SSR-S3 role we also made.
+- Prompts you to do a one-time Batch Operation to replicate existing objects if you want
+- Then, upload some files (I did the fruit pics) into your **source** Bucket
+- Give a couple mins, and the **destination** Bucket also has them (successful replication)
+
+- RE: Creating a Lifecycle rule
+- Didn't make it, but you can/should: name it, scope it or apply it to all buckets, create object tags, rules for object size, lifestyle rule actions (e.g., storing current and noncurrent versions of objects in same or different storage classes, deletion of things, etc.)
+- Played around with deleting an older version, seeing that newer versions still existed. Delete marker added to the version that is deleted, others persist (?)
 
 ## 56. Create an Amazon S3 Static Website
+- 
 
 ## 57. S3 Permissions and Bucket Policies
 
