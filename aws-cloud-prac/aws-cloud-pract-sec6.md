@@ -68,7 +68,7 @@
 - Data consistency --- durably stored across AZs
 - File locking --- NFS client apps use NFS v4 file locking for read and write operations on EFS files
 - Storage classes --- 3 options. Standard, Infrequent Access(IA), Archive
-- Durability --- 11 9s of durability (likie S3). Unlikely to lose data.
+- Durability --- 11 9s of durability (like S3). Unlikely to lose data.
 - Deployment options: an EFS File System in a Region, connected to an EC2 instance.  Can be replicated across/in another Region; mount points can be created but the file system will be read-only (until you fail-over to use the copy of the data in that system in that Region; e.g., some sort of a system failure)
 - Can also connect outside of cloud, must be Linux-based and use NFS protocol; typically using a VPN or direct connection (e.g., a corporate data center)
 - EFS Replication --- data is replicated across Regions for disaster recovery purposes with RPO/RTO in the minutes
@@ -97,7 +97,7 @@
 - RE: Durability --- protection against data loss, data corruption. S3 offers 11 9s of durability (99.999999999). They achieve this by spreading copies of your data across many AZs.
 - RE: Availabity --- measurement of the amount of time that data is available to use; expressed as % of time per year (e.g., 99.99%). Slides 145-146
 - Diff. costs with diff. storage tiers. IA = infrequently accessed
-- **Takeaway:** diff. tiers allow for diffl levels of durability, availability. Inteliigent Tiering means AWS will automatically monitor and assess how much data is used or not used and help optimize it for you. For IA / Glacier, you're lowering availability for longer time periods but for lower cost. (e.g., Glacier Deep Archive for compliance data that you don't need to access/use but legally have to hold for a certain amount of time/years)
+- **Takeaway:** diff. tiers allow for diff. levels of durability, availability. Inteliigent Tiering means AWS will automatically monitor and assess how much data is used or not used and help optimize it for you. For IA / Glacier, you're lowering availability for longer time periods but for lower cost. (e.g., Glacier Deep Archive for compliance data that you don't need to access/use but legally have to hold for a certain amount of time/years)
 
 ## 53. Working with S3 Buckets and Objects
 - **Demo:** creating S3 buckets and manipulating objects
