@@ -13,6 +13,7 @@
             - if less, then go/look right (i.e., the right half of the array) by moving the left pointer in to `midpoint + 1`
             - on the next iteration, a new midpoint will be calculated with the one of the pointers being updated (that is, the relevant portion of the array)
     - return `left` for the midpoint
+    - Time: O(log n). Space: O(1)
 
 ```js
 var searchInsert = function(nums, target) {
