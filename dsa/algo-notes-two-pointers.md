@@ -2,7 +2,7 @@
 
 ### 9. Palindrome Number (LeetCode)
 
-- Naive --- concat to an empty string and compare new with original. Time: O(n). Space: O(1)
+- Naive --- convert num to string, concat to an empty string and compare new with original. Time: O(n). Space: O(1)
 
 - **Two pointers approach**
     - check data type --> convert number to string for traversal (index, length properties of strings)
