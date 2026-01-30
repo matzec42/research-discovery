@@ -28,3 +28,4 @@ var isPalindrome = function(x) {
     return true;
 };
 ```
+

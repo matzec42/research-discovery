@@ -7,7 +7,7 @@
     - iterate over s2, decrement count in the hash map for characters that match
     - iterate over hash map; valid anagram if all chars have a zero count
     - early returns for false in loop over s2 and last/third loop over hash map; final return is true (a valid anagram has been found)
-    - Time: O(n + m). Space: O(n)
+    - Time: O(n). Space: O(n)
 
 ```js
 const anagrams = (s1, s2) => {
@@ -39,13 +39,14 @@ const anagrams = (s1, s2) => {
 
 - Using Map for hashing (**Structy**)
     - edge case check for unequal string lengths, early false return
-    - instantiate hash map for frequency counts for s1 chars
+    - instantiate `hash` map for frequency counts for s1 chars
     - first loop --- think of as collecting inventory
-    - second loop over s2 --- think of as spending inventory
+    - second loop over `s2` --- think of as spending inventory
         - early return for any char that doesn't appear (not an anagram)
         - update the count by decrementing chars that do appear
-        - less than zero check --> if s2 has any char that is overused compared to in s1, also cause for early return
-        - if this loop runs fully, then both strings have same chars and frequencies --> they are valid anagrams
+        - less than zero check --> if **s2 has any char that is overused compared to in s1**, also cause for **early return**
+        - if this **loop runs fully**, then **both strings have same chars and frequencies** --> they are valid anagrams
+    - Time: O(n). Space: O(n)
 
 ```js
 const anagrams = (s1, s2) => {
