@@ -72,18 +72,22 @@ var isValid = function(s) {
 - Brute force approach
     - Nested for loops. Times out with large inputs though
     - Time: O(n^2). Space: O(n)
+
 ```js
-for (let i = 0; i < temperatures.length; i++) {
-        let dayCounter = 1;
-        for (let j = i + 1; j < temperatures.length; j++) {
-            if (temperatures[j] > temperatures[i]) {
-                answer[i] = dayCounter;
-                break;
+var dailyTemperatures = function(temperatures) {
+    const answer = Array(temperatures.length).fill(0, 0);
+    for (let i = 0; i < temperatures.length; i++) {
+            let dayCounter = 1;
+            for (let j = i + 1; j < temperatures.length; j++) {
+                if (temperatures[j] > temperatures[i]) {
+                    answer[i] = dayCounter;
+                    break;
+                }
+                dayCounter += 1;
             }
-            dayCounter += 1;
         }
-    }
     return answer
+}
 ```
 
 - **Optimized: Monotonic Stack approach**
