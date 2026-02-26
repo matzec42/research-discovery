@@ -12,7 +12,7 @@
             - NOTE: a constraint of problem is that the string only contains parens characters
         - the 'else' checks closing parens against the lastStackItem w/ help from the hash map (`parensObj`)
             - object bracket notation helps do this comparison
-            -**FIFO** principle ---> whatever opening bracket is on top of stack gets compared to any closing parens
+            - **FIFO** principle ---> whatever opening bracket is on top of stack gets compared to any closing parens
                 - if a match, it gets popped off; the open parens below it on the stack becomes the new top, and further iterations will make the same comparison
                 - if there is a mismatch, then the string doesn't contain a collection of valid parens
     - final check of stack at end --> if empty, then all parens have been paired, return the correct Boolean 
