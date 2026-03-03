@@ -1,5 +1,55 @@
 ## Recursion / Backtracking / DFS
 
+### 17. Letter Combinations of a Phone Number
+
+- **Recursion** and generating combos (similar to #22 Generate Parentheses)
+- Dictionary for the `letters` that go with each digit of a phone keypad; initialize a `result` array to return (per the prompt), combos will be pushed into this
+- **Recursive helper**
+    - Core idea is to build out combinations as you iterate over the letters for each digit (e.g., with "23", you start with "a" and make combos like "ad", "ae", af", then move onto "b" and form "bd", "be", "bf", etc.)
+    - **Base case** is when the combo's length reaches that of digits' length; push into result array at this point and return
+    - **KEY:** the `for...of` loop iterates over each char/letter of the string that has the letters for the current digit
+        - Args for the recursive helper: `combo` being built, `index` (which gets incremented by 1 with every call, to access subsequent chars/letters, and `nums` (digits for clarity/differentiating the original arg passed into the main function))
+- Edge case of 1 digit is handled by the function naturally
+
+```js
+var letterCombinations = function(digits) {
+    // edge case --- if digits is less than 2; return an empty array, as no combos are possible
+    // recursion naturally handles edge case of 1 digit (it creates single-letter 'combos', if you will)
+    
+    const letters = {
+        "2": "abc",
+        "3": "def",
+        "4": "ghi",
+        "5": "jkl",
+        "6": "mno",
+        "7": "pqrs",
+        "8": "tuv",
+        "9": "wxyz"
+    }
+
+    const result = [];
+
+    const recursiveHelper = (combo, index, nums) => {
+        // base case --- when combo length is as long as the length of digits
+        if (combo.length === digits.length) {
+            result.push(combo);
+            return
+        }
+        // loop --- each char of the string for each digit
+        for (const char of letters[nums[index]]) {
+            recursiveHelper(combo + char, index + 1, nums)
+        }
+    }
+
+    recursiveHelper('', 0, digits);
+
+    return result;
+};
+```
+
+
+
+
 ### 22. Generate Parentheses
 
 - See HH 2/11/2025
