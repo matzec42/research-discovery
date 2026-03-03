@@ -92,3 +92,37 @@ var permute = function(nums) {
     return results;
 };
 ```
+
+
+
+### 70. Climbing Stairs
+
+-  **Recursion** with **Fibonacci sequence** (i.e., the next sum is the sum of the two preceding nums). This increases the possible number of combos with the option of either 1 or 2 "steps" to climb.
+- **KEY**: utilizing memoization (closure!) to avoid timing out and too many redundant calls (see in-line notes)
+    - closure means subsequent calls (e.g., calling with the same argument after it's already been called once and the result has been stored in the cache) will be much faster, passes the remaining test cases
+
+```js
+var climbStairs = function(n) {
+    const cache = {};
+
+    const recursiveFunct = (num) => {
+        // check cache first --- early return if result is stored
+        if (cache[num] !== undefined) return cache[num];
+        
+        // base cases
+        if (num === 0) return 0;
+        if (num === 1) return 1;
+        if (num === 2) return 2;
+        
+        // compute the value --- recursive calls set up for a Fibonacci sequence
+            // the two calls generate the "tree" for recursion & backtracking
+            // store in cache, which the helper has access to because of closure
+        cache[num] = recursiveFunct(num - 1) + recursiveFunct(num - 2);
+        // returns either the stored value or the result of the recursion (if function is being called with whatever n is for the first time)
+        return cache[num];
+    }
+    return recursiveFunct(n);
+};
+```
+
+
