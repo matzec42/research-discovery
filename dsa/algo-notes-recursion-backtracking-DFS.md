@@ -9,6 +9,8 @@
     - **Base case** is when the combo's length reaches that of digits' length; push into result array at this point and return
     - **KEY:** the `for...of` loop iterates over each char/letter of the string that has the letters for the current digit
         - Args for the recursive helper: `combo` being built, `index` (which gets incremented by 1 with every call, to access subsequent chars/letters, and `nums` (digits for clarity/differentiating the original arg passed into the main function))
+        - Each call (execution context) has its own loop, iterating over the letters for its own index. See below, per Claude:
+    ![Picture of Claude mental model for this problem](./images/letter-combos-phone-number-pic.png)
 - Edge case of 1 digit is handled by the function naturally
 
 ```js
