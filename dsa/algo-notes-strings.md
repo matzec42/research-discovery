@@ -27,12 +27,14 @@ var lengthOfLastWord = function(s) {
         -  if starting with 1, chars at even indices should be 1's, odd indices should be 0's
     - store expected value (what you expect next, based on current value of string at index i), and `if` statements to increment the count accordingly
 - return the lesser of the two counts (minimum # of changes to make it alternating binary string)
+- Time: O(n). Space: O(1).
 
 
 ```js
 var minOperations = function(s) {
     let start0 = 0; // pattern: 010101
     let start1 = 0; // pattern: 101010
+
     // iterate over string chars
     for (let i = 0; i < s.length; i++) {
         // variables
@@ -44,6 +46,7 @@ var minOperations = function(s) {
         if (s[i] !== expected0) start0++;
         if (s[i] !== expected1) start1++;
     }
+
     // return the lesser of the two counts
     return Math.min(start0, start1);
 };
