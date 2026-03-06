@@ -14,6 +14,8 @@
     - check Map:
         - if it contains the **compliment** of the current value, then that means there are 2 numbers that add up to target; return indices of the 2 nums in an array (this is LeetCode's version)
         - if compliment of current value is **not** in Map, then add **current value** & its index to the Map; if it is the compliment to another number that appears later in the array, this ensures it is stored for future comparison
+    - in this version, **return** the **indices** of the two numbers (for the `diff` (compliment), the indices are the values of the key-value pairs stored in the `map`)
+    - Time: O(n). Space: O(n).
 
 ```js
 const twoSum = function(nums, target) {
