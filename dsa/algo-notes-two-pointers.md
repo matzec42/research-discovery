@@ -30,6 +30,51 @@ var isPalindrome = function(x) {
 ```
 
 
+
+
+### 26. Remove Duplicates from Sorted Array
+
+- **HINT:** **sorted array** lends itself to two pointers, as the **dupcliate elems** will be adjacent, and you can simply skip dupes by moving a pointer.
+- In LeetCode, this is worded weirdly (they want you to reassign elems / in-place moving of elems, and it sounds like they steering you towards returning the length of the sorted slice of the array---but you needn't even do that!)
+- Output should be a **number (k)**, representing the unique elems. So have this double as your **counter** as you iterate
+- Loop over nums:
+    - compare current elem (`nums[i]`) and last seen unique elem (`nums[k - 1]`)
+        - `i` is index of **current position** in loop
+        - `k - 1` represents **index/position of the last unique elem**
+    - when the `if` statement is **falsy** (i.e., there is a duplicate), then no re-writes/re-assignment; `i` just increments, `k` doesn't move
+    - when the `if` statement is **true** (i.e., nums[i], the current value, is **not** the same as the last unique elem written), then a rewrite/reassignment occurs
+        - `k` is the index/position of the **duplicate** of the last seen unique elem --- a.k.a, **where the writing will happen next once another unique elem is found**
+        - `nums[k]` is the elem that gets written over with `nums[i]` (the unique elem found during the iteration)
+            - i.e., in-place reassignment that maintains the ascending order of elems (per the prompt)
+    - `k` gets **incremented by 1** --> this move the write head forward
+        - so, after every iteration, the write head is in position to write the next unique elem
+
+```js
+var removeDuplicates = function(nums) {
+    // initialize k --- counter of unique elems
+    // think of k as the "write" head, used in the loop to re-assign dupes in place
+    let k = 1;
+
+    // iterate over nums
+    // think of i as the "read" head, looking at every elem
+    for (let i = 1; i < nums.length; i++) {
+        if (nums[i] !== nums[k - 1]) {
+            // read head (i) found something new, so write it where write head (k) is pointing
+            nums[k] = nums[i];
+            k += 1;
+        }
+    }
+    return k;
+};
+```
+- Pics for more explanation:
+![Two Pointers Mental Model table](./images/remove-dupes-claude-pic.png)
+![Two Pointers Mental Model explan.](./images/remove-dupes-claude-pic-2.png)
+
+
+
+
+
 ### 88. Merge Sorted Array
 
 - **HINT** that it is a **two pointers** problem --> **sorted arrays**
