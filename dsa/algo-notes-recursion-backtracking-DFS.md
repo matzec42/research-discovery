@@ -1,5 +1,19 @@
 ## Recursion / Backtracking / DFS
 
+- **General advice for these types of problems:**
+- Look these signals in a prompt:
+    - **"Find all combinations/subsets/permutations"** — almost always backtracking
+    - **"How many ways can you..."** — often recursion, sometimes Dynamic Programming
+    - The solution space is a tree of choices — if you can phrase the problem as "at each step I choose X or Y", backtracking fits
+    - **You need to explore and then undo** — if committing to a choice temporarily and reversing it later makes sense, that's the push/pop pattern (e.g., #39 Combination Sum)
+- For **recursion problems specifically**, do this step **between** pseudocode and coding:
+        - **Draw** the tree first. Seriously, on paper.
+        - Before writing a single line of code, ask:
+            - What is **one "decision"** at **each step**?
+            - What **changes** between recursive calls?
+            - What does the **base case(s)** look like?
+
+
 ### 17. Letter Combinations of a Phone Number
 
 - **Recursion** and generating combos (similar to #22 Generate Parentheses)
@@ -96,6 +110,51 @@ var generateParenthesis = function(n) {
 
 
 
+### 39. Combination Sum
+
+- Approach: **backtracking/DFS** using **recursion.** Builds out a decision tree (think Felipe's HH solutions with recursion, "take it or leave it" saying).
+- Must see if nums added together add up to target
+- Also, if a single num from `candidates` itself X amount of times can add up to the `target`, as well as if multiple nums in `candidates` add up to `target`
+- Wrinkle: unlimited # of uses for an elem in the `candidates` array (i.e., a number can be reused any # of times to add up to the target potentially).
+    - One series of recursive calls needs to deal specifically while **staying at the same index**
+    - Another series of recursive calls handles building combos while **moving the index forward**
+
+```js
+var combinationSum = function(candidates, target) {
+    const result = [];
+
+    const comboMaker = (index, combo, total) => {
+        // base case (success) --- if total sum equals target, push combo into result and return
+        if (total === target) {
+            // spread operator here --- must push a copy, so as not to mutate the original array
+            result.push([...combo]);
+            return;
+        }
+        // base case (failure) --- if sum total exceeds target or if index goes beyond length of candidates array, then early return (no combo pushed)
+        if (total > target || index >= candidates.length) {
+            return;
+        }
+
+        // add current candidate to the combo array
+        combo.push(candidates[index]);
+        // this recursion occurs staying at same index; addresses the "same num can be used unlimited times" part of prompt
+        comboMaker(index, combo, total + candidates[index]);
+        // backtrack by undoing the push --- i.e., like trying another branch
+        combo.pop();
+        // recursion at the next index
+        comboMaker(index + 1, combo, total);
+    }
+
+    // invoke comboMaker function to start recursion
+    comboMaker(0, [], 0);
+    // after recursion and population of result array, return it
+    return result;
+};
+```
+
+
+
+
 ### 46. Permutations
 
 - **Backtracking/recursion.**
@@ -176,5 +235,3 @@ var climbStairs = function(n) {
     return recursiveFunct(n);
 };
 ```
-
-
