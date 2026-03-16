@@ -1,6 +1,6 @@
 ## Recursion / Backtracking / DFS
 
-- **General advice for these types of problems:**
+- **General Advice:**
 - Look these signals in a prompt:
     - **"Find all combinations/subsets/permutations"** — almost always backtracking
     - **"How many ways can you..."** — often recursion, sometimes Dynamic Programming
