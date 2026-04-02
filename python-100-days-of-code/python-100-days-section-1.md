@@ -57,6 +57,7 @@
 
 - In Python, no keyword required (not like JS "const" or "let"). Just the **label** and **=**
 - Can reassign at a later time (e.g., her "Jack" and "Angela" example)
+- **NameError** is what you see in console when the interpreter can't find a variable name that it's trying to execute
 - `**len()**` built-in function to find a length of string (like .length in JS)
     - In-video example is w/ `input("What is your name?")`, response in terminal, then `print` runs and logs in terminal
 - 
