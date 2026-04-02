@@ -1,6 +1,6 @@
 # 100 Days of Code: The Complete Python Pro Bootcamp (Angela Yu)
 
-## Section 1 --- Notes
+## Day 1 --- Notes
 
 ### 1. - 3. (intro / set up stuff)
 
@@ -24,7 +24,7 @@
 
 - **print** function (a.k.a, Python's console.log)
 - Mac shortcut for running code in the IDE: **Cmd + R**
-- Me: don't use semi-colons at end of lines like JS. Not a common practice in Python
+- Me: **don't** use semi-colons at end of lines like JS. Not a common practice in Python
 
 - **Coding Exercise 1: Printing Practice**
     - In the Udemy course playlist (has a built-in IDE in the webpage for the course)
@@ -55,21 +55,29 @@
 
 ### 9. Python Variables
 
+- In Python, no keyword required (not like JS "const" or "let"). Just the **label** and **=**
+- Can reassign at a later time (e.g., her "Jack" and "Angela" example)
+- `**len()**` built-in function to find a length of string (like .length in JS)
+    - In-video example is w/ `input("What is your name?")`, response in terminal, then `print` runs and logs in terminal
 - 
 
 - **Coding Exercise 3: Variables**
+    - In Udemy -- use a `temp` variable to hold a value, reassignmnet to switch them ("milk" and "juice")
 
 
 
 ### 10. Variable Naming
 
-- 
+- **No spaces**, use of the **underscore** (_) for naming is conventional. Must be a single unit
+- Don't start variable name with a number
+- Avoid using keywords (e.g., input, print) in variable naming
+- **Variable Naming Quiz** -- in Udemy
 
 
 
 ### 11. Day 1 Project: Band Name Generator
 
-- 
+- Combining `print`, variables that store `input` functions for city and pet, and a final print that uses string concatenation and variables
 
 
 
