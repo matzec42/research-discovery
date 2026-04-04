@@ -75,6 +75,7 @@ print(f"Who will pay the bill?...It's {friends[index]}")
 - Short quiz in Udemy
 
 
+
 ### 35. Day 4 Project: Rock, Paper, Scissors
 
 - Breaking down problem into smaller ones --- using 0, 1, 2 as proxies for the plays

@@ -57,7 +57,7 @@ if condition:
 if condition:
     *do something*
 ```
-- **`elif`** --- equivalent to `else if`. More than 2 specific conditions.
+- **`elif`** --- equivalent to `else if` in JS. When you want to check more than 2 specific conditions.
 - Ex: ticketing prices for under 12, between 12 and 18, and over 18 (video example)
 
 - **Coding Exercise 5: BMI Calculator with Interpretations**
