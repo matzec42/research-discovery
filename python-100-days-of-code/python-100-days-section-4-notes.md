@@ -79,3 +79,7 @@ print(f"Who will pay the bill?...It's {friends[index]}")
 
 - Breaking down problem into smaller ones --- using 0, 1, 2 as proxies for the plays
 - Use of `if` and `elif` with an attention to order of possible results (e.g., handling an invalid number from the user first)
+
+
+
+### 36. Programming is like going to the gym
