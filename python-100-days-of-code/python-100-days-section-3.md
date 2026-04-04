@@ -97,4 +97,9 @@ not E #The condition must be false
 
 ### 28. Day 3 Project: Treasure Island
 
-- 
+- Choose your own adventure style game with `input`, `print` and `if`, `elif`, and `else` statements
+- NOTE: `\` is also an escape character for in-text quotation marks being used so that you avoid syntax errors with punctuation in a string
+
+
+
+### 29. Share and Show Off Your Project
