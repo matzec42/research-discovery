@@ -107,6 +107,7 @@ for num in range(0, nr_numbers):
 print(password_list)
 # built in shuffle method
 random.shuffle(password_list)
+# print to see the shuffled list
 print(password_list)
 
 final_password = ""
@@ -115,3 +116,9 @@ for val in password_list:
 
 print(f"Your final password is: {final_password}")
 ```
+
+
+
+### 42. Hard Work and Perseverance beats Raw Talent Every Time
+
+- Keep showing up.
