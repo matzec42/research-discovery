@@ -33,6 +33,11 @@ var rotate = function(matrix) {
 };
 ```
 
+- RE: extensions of this problem (e.g., like **Visa** take-home where function took additional args, including other rotations like 180, 270 degrees). Per Claude:
+
+![Picture of Claude notes on extensions of this problem](./images/rotate-image-claude-pic-2.png)
+
+
 
 
 ### 242. Valid Anagram (LeetCode, **Structy.net** version below)
