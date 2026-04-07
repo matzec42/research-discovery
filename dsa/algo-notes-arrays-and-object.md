@@ -1,5 +1,40 @@
 ## Arrays and Objects Problems
 
+### 48. Rotate Image (LeetCode)
+
+- **Strategy:** **transpose** (flip over imaginary diagonal from top left to lower right), then **reverse rows.** 
+- **This version** only calls for **rotating 90 degress.** (Others like the Visa algo, for ex., calls for 180 and 270 degree rotations too...).
+- Variable to store matrix length (easier reading), nested for loops to traverse rows (outer) and columns (inner)
+    - `temp` variable used to re-assign values in place (per the prompt)
+    - by **transposing** (swapping) values in this way, you get the row values put into columns; however, they're not yet in the right place
+- Final loop **reverses** the rows (the rows *now* where the values were just swapped), which places them into their correct column position
+
+![Picture of Claude mental model for this problem](./images/rotate-image-claude-pic.png)
+
+```js
+var rotate = function(matrix) {
+  // variable for reuse/readability
+    const n = matrix.length;
+    // outer loop for traversing the rows
+    for (let row = 0; row < n; row++) {
+      // inner loop looks at columns (values in nested arrays)
+        for (let col = row + 1; col < n; col++) {
+            // value swapping in place
+            // this transposes them across the diagonal
+            let temp = matrix[row][col];
+            matrix[row][col] = matrix[col][row];
+            matrix[col][row] = temp;
+        }
+    }
+
+    for (let row = 0; row < n; row++) {
+        matrix[row].reverse();
+    }
+};
+```
+
+
+
 ### 242. Valid Anagram (LeetCode, **Structy.net** version below)
 
 - Traditional JS Objects

@@ -1,6 +1,6 @@
 ## Binary Search Problems
 
-## 34. Find First and Last Position of Element in Sorted Array (LeetCode)
+### 34. Find First and Last Position of Element in Sorted Array (LeetCode)
 
 - Binary Search w/ a Twist
     - Prompt requires O(log n) time complexity --> clue that it's binary search
