@@ -3,11 +3,12 @@
 ### 48. Rotate Image (LeetCode)
 
 - **Strategy:** **transpose** (flip over imaginary diagonal from top left to lower right), then **reverse rows.** 
-- **This version** only calls for **rotating 90 degress.** (Others like the Visa algo, for ex., calls for 180 and 270 degree rotations too...).
+- **This version** only calls for **rotating 90°.** (Others like the Visa algo, for ex., calls for 180° and 270° rotations too...).
 - Variable to store matrix length (easier reading), nested for loops to traverse rows (outer) and columns (inner)
     - `temp` variable used to re-assign values in place (per the prompt)
     - by **transposing** (swapping) values in this way, you get the row values put into columns; however, they're not yet in the right place
 - Final loop **reverses** the rows (the rows *now* where the values were just swapped), which places them into their correct column position
+- Time: O(n^2). Space: O(1)
 
 ![Picture of Claude mental model for this problem](./images/rotate-image-claude-pic.png)
 
@@ -33,10 +34,78 @@ var rotate = function(matrix) {
 };
 ```
 
-- RE: extensions of this problem (e.g., like **Visa** take-home where function took additional args, including other rotations like 180, 270 degrees). Per Claude:
+- RE: **Extensions of this problem** (e.g., like **Visa** take-home where function took additional args, including other rotations like 180°, 270°). Per Claude:
+-  **STRATEGY / BIG IDEAS:**
+    - 90°:  transpose → reverse rows
+    - 180°: reverse rows → reverse matrix (or vice versa)
+    - 270°: reverse rows → transpose
 
 ![Picture of Claude notes on extensions of this problem](./images/rotate-image-claude-pic-2.png)
 
+
+
+- Snippet --- function that **rotates 180°**:
+```js
+var rotate180 = function(matrix) {
+    const n = matrix.length;
+
+    for (const row of matrix) {
+      row.reverse()
+    }
+  
+    matrix.reverse()
+};
+```
+- Snippets --- two versions of a function that **rotates 270°**:
+```js
+var rotate270 = function(matrix) {
+  // variable for reuse/readability
+    const n = matrix.length;
+
+    for (let row = 0; row < n; row++) {
+        matrix[row].reverse();
+    }
+
+    // outer loop for traversing the rows
+    for (let row = 0; row < n; row++) {
+      // inner loop looks at columns (values in nested arrays)
+        for (let col = row + 1; col < n; col++) {
+            // value swapping in place
+            // this transposes them across the diagonal
+            let temp = matrix[row][col];
+            matrix[row][col] = matrix[col][row];
+            matrix[col][row] = temp;
+        }
+    }
+
+};
+
+var rotate270ver2 = function(matrix) {
+    const n = matrix.length;
+
+    // Step 1: Transpose — identical to 90°
+    for (let row = 0; row < n; row++) {
+        for (let col = row + 1; col < n; col++) {
+            let temp = matrix[row][col];
+            matrix[row][col] = matrix[col][row];
+            matrix[col][row] = temp;
+        }
+    }
+
+    // Step 2: Reverse each column (instead of each row)
+    for (let col = 0; col < n; col++) {
+        let top = 0;
+        let bottom = n - 1;
+        while (top < bottom) {
+            let temp = matrix[top][col];
+            matrix[top][col] = matrix[bottom][col];
+            matrix[bottom][col] = temp;
+            top++;
+            bottom--;
+        }
+    }
+};
+```
 
 
 
