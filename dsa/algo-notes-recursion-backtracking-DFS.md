@@ -6,6 +6,7 @@
     - **"How many ways can you..."** — often recursion, sometimes Dynamic Programming
     - The solution space is a tree of choices — if you can phrase the problem as "at each step I choose X or Y", backtracking fits
     - **You need to explore and then undo** — if committing to a choice temporarily and reversing it later makes sense, that's the push/pop pattern (e.g., #39 Combination Sum)
+    - Grid problems where you **"find connected regions,"** **movement in all directions**, Boolean/counting of **distinct areas** (e.g., **numIslands**) --- this points to DFS/recursion
 - For **recursion problems specifically**, do this step **between** pseudocode and coding:
         - **Draw** the tree first. Seriously, on paper.
         - Before writing a single line of code, ask:

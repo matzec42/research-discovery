@@ -1,12 +1,26 @@
 ## Dynamic Programming Problems
 
-### 72. Edit Distance
+- A technique for solving problems by breaking them into sub-problems, solving each once, and storing the results to avoid redundant computation
+    - Often calls for using a **data structure**
+    - Rule of thumb: your `dp` data structure usually mirrors the shape of your inputs or state space
+        - e.g., **2D table** for grid problems or problems comparing two sequences (e.g., longest common subsequence)
+        - e.g., **1D array** for problems that depend on previous vals in a sequence (e.g., Fibonacci, coin change, climibing stairs)
+        - e.g., **hash maps** (less common)
+- Instead of recomputing the same thing repeatedly (like exploring the same cell via multiple paths), you build up a record/table of answers from smaller subproblems to larger ones
 
-- Find the minimum number of operations to convert word1 into word2 (allowed operations: insert a char, delete a char, replace a char)
-- Logically --- think through if word2 (target word) is an empty string. You'd have to **delete** all letters (call it 'i') in word1. If word1 is empty, you'd need to **insert** j characters (call insertions 'j').
+- **Questions** to ask of a prompt:
+    - "Can this problem be broken into overlapping subproblems?"
+    - "Is there an optimal substructure — does the best solution to the whole problem depend on best solutions to smaller parts?"
+    - "Am I only moving in restricted directions with no backtracking?"
+    - "Am I optimizing (min/max) something over a path or sequence?"
 
-...
-
+- **General Advice**
+- Sometimes iterative, sometimes recursive is valid too (but this can be a brute force approach --- see #64 Min Sum Path)
+- Look these signals in a prompt:
+    - **Restricted movement** points to iterative dynamic programming (i.e., no backtracking, which would suggest recursion)
+    - **Optimization problems on grids** (e.g. "minimum/maxiumum" of something over a path)
+        - Bigger tip --- grid values are always **positive**, which means there aren't any surprises (negative nums) that would invalidate a previously computed min/max sum, e.g.
+    - Signals that it is DFS/recursion ---> "find connected regions," movement in **all directions**, Boolean/counting of distinct areas (e.g., **numIslands**)
 
 
 
@@ -60,3 +74,106 @@ var maxSubArray2 = (nums) => {
     return maxSum;
 }
 ```
+
+
+
+
+### 64. Minimum Path Sum
+
+- Initially solved with recursion, but doesn't pass all testcases in LeetCode / times out. Including since that's how I initially solved it.
+- Tracking minimum with restricted movement (only down or right) --> apparently a tip that it's DP, since you can conceptualize it as subproblems
+    - when I want to move, I want to take the lesser number of the two numbers to add to sum
+- **Dynamic programming** approach (w/ iteration):
+    - initialize a table (a **grid w/ same dimensions as table**) that serves a **data structure**
+        - purpose: to hold **sums** of the paths traveled up until those cells/places
+    - "seeding" the DP table:
+    - **why?** --> to chart path either down or right in the interior parts of the grid, you have to have edges to compare against
+        - initialize the first value `dp[0][0]` with the first value from grid (`grid[0][0]`)
+        - first couple of `for` loops seed the edges of the table
+            - summing the row values
+            - summing the col values
+    - last nested `for` loop:
+        - similar to nested loops for grid traversal (outer for rows, inner for cols)
+        - starting at `grid[1][1]`, take the lesser of the two sums from the table (looking above and left, i.e., looking "back" at your previously computed sums when you seeded the table) using `Math.min()`
+        - Add it to current value you're looking at on the grid (`grid[r][c]`)
+    - `return` the last value (bottom right) of dp table
+        - by the time you've arrived here, you've calculated and added the minimum sum to the dp table, so you can just return it
+
+
+```js
+/* Dynamic programming solution with iteration --- Claude assisted */
+var minPathSum = function(grid) {
+    // initialize variables for grid dimensions (ease/readability)
+    const m = grid.length;
+    const n = grid[0].length;
+    
+    // initialize a DP table --- holds the sums 
+    const dp = Array(m).fill(null).map(() => Array(n).fill(0));
+    // initial DP value, starting in upper left corner
+    dp[0][0] = grid[0][0];
+    
+    // fill first row
+    for (let c = 1; c < n; c++) {
+        dp[0][c] = dp[0][c-1] + grid[0][c];
+    }
+    
+    // fill first column
+    for (let r = 1; r < m; r++) {
+        dp[r][0] = dp[r-1][0] + grid[r][0];
+    }
+    
+    // fill the rest
+    for (let r = 1; r < m; r++) {
+        for (let c = 1; c < n; c++) {
+            dp[r][c] = Math.min(dp[r-1][c], dp[r][c-1]) + grid[r][c];
+        }
+    }
+    
+    return dp[m-1][n-1];
+};
+
+
+/* Recursive --- valid brute force solution but fails to pass all testcases, times out */
+var minPathSum2 = function(grid) {
+    // variables to hold sum, grid dimensions
+    let minSum = null;
+    const m = grid.length;      // length of outer array ("vertical" or rows length)
+    const n = grid[0].length;   // length of inner array ("horizontal" or columns length)
+
+    const dp = Array(m).fill(null).map(()=> Array(n).fill(0));
+    console.log(`DP table: `, dp)
+
+    // recursive helper
+    const dfs = (r, c, currSum) => {
+        // base case --- check if out of bounds
+        if (r >= m || c >= n) return;
+        // *KEY: increment currSum here, otherwise last cell's value (bottom right) doesn't get added to final total*
+        currSum += grid[r][c];
+
+        if (r === m - 1 && c === n - 1) {
+            if (minSum === null || currSum < minSum) {
+                minSum = currSum;
+                return;
+            }
+            return
+        }
+        
+        dfs(r, c + 1, currSum)   // call for moving right
+        dfs(r + 1, c, currSum)   // call for moving down
+    }
+    
+    dfs(0, 0, 0);       // row, col, currSum (initially 0)
+
+    return minSum;
+};
+```
+
+
+
+
+### 72. Edit Distance
+
+- Find the minimum number of operations to convert word1 into word2 (allowed operations: insert a char, delete a char, replace a char)
+- Logically --- think through if word2 (target word) is an empty string. You'd have to **delete** all letters (call it 'i') in word1. If word1 is empty, you'd need to **insert** j characters (call insertions 'j').
+
+...
