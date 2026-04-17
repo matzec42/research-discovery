@@ -53,4 +53,14 @@ while a_conditional_is true:
 
 ### 48. Hurdles Challenge using While Loops
 
-- 
+- Reeborg's Hurdles Challenge 3 (see Udemy resources folder for this section)
+
+
+
+### 49. Jumping over Hurdles with Variable Heights
+
+- Reeborg's Hurdles Challenge 4 (?) (see Udemy resources folder this section)
+
+
+
+### 50. 
