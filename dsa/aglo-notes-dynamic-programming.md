@@ -170,6 +170,74 @@ var minPathSum2 = function(grid) {
 
 
 
+### 62. Unique Paths
+
+- Approach: DP. Similar to Minimum Sum Path (#64). Looking for a max, backtracking isn't necessary (nor most efficient, though I'm sure one can also solve recurisvely like #64). 
+- Create a DP table
+    - Use methods, fill with `null`, then `.map` over filling with `0`'s
+    - Clear, but also takes up space in memory (space complexity goes up to O(m * n) )
+- Seed the first row and first column (the edges) with two separate loops
+    - Write in `1` for the values --- i.e., the only move you can make from an edge (prompt says either down or right only)
+- Fill in the rest of the table
+    - Nested loops --- outer traverses `m` number of rows, inner traverses `n` number of columns
+    - Add the "above" and "left" cells to get current cells value (i.e., the number of unique paths to it)
+        - This line in nested loops is key: `dp[row][col] = dp[row - 1][col] + dp[row][col -1]`
+    - By the time you get to last cell in bottom right, you have the total # of unique paths
+- Time: O(m * n). Space: O(m * n)
+
+```js
+var uniquePaths = function(m, n) {
+    // create the dp
+    const dp = Array(m).fill(null).map(() => Array(n).fill(0))
+
+    // seed the outer edges of the dp --- first row
+    for (let i = 0; i < m; i++) {
+        dp[i][0] = 1;
+    }
+    // seed the columns
+    for (let j = 0; j < n; j++) {
+        dp[0][j] = 1;
+    }
+
+    // fill rest of table -- nested loops, outer over rows, inner over columns
+    // starting at position [1, 1], since the edges are filled with 1s
+    for (let row = 1; row < m; row++) {
+        for (let col = 1; col < n; col++) {
+            // look above and left, add together for number of unique paths for that cell, write into dp table
+            dp[row][col] = dp[row - 1][col] + dp[row][col -1]
+        }
+    }
+
+    // last value filled in bottom right ---> return this, it's the # of unique paths
+    return dp[m - 1][n -1]
+};
+```
+- An **optimized approach**:
+    - use a 1D array of length `n`, and just overwrite it as you go row by row. **Space complexity becomes: O(n)**
+    - key insight is that `dp[col]` doesn't get overwritten in the current row iteration, so it still holds the value from the row above, which is what you need
+    - you only need a moving window of data, which in this problem is just one row
+        - **if your recurrence only looks back one step in one dimension, you can compress that dimension away.**
+        - see the **0/1 knapsack problem...(?)**
+
+```js
+var uniquePaths = function(m, n) {
+    // single row, seeded with 1s
+    const dp = Array(n).fill(1);
+
+    // start at row 1 since row 0 is all 1s
+    for (let row = 1; row < m; row++) {
+        for (let col = 1; col < n; col++) {
+            // dp[col] is already the value from the row above
+            // dp[col - 1] is the value to the left (already updated this row)
+            dp[col] = dp[col] + dp[col - 1];
+        }
+    }
+    // return the final (bottom right of grid) value
+    return dp[n - 1];
+};
+```
+
+
 
 ### 72. Edit Distance
 
