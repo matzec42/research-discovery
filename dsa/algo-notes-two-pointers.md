@@ -47,6 +47,7 @@ var isPalindrome = function(x) {
         - if invalid sum is greater than 0, move the right pointer (`z`) in to look at smaller value on next iteration
         - if invalid sum is less than 0, move the left pointer (`y`) in to look at a bigger value on next iteration
 - return result array
+- Time: O(n^2). Space: O(1).
 
 ```js
 var threeSum = function(nums) {
