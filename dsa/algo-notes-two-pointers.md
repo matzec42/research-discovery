@@ -37,6 +37,7 @@ var isPalindrome = function(x) {
 - Sort the array, which places possible duplicates next to one another (problem constraint is that elements must add up to 0 and be at different indices)
 - `for` loop over sorted array
     - conditional check --- if elem before current one is the same (i.e., a duplicate), then `continue` (saves unnecessary iteration)
+    - for loop set up --- `x < sorted.length - 2` so that you're not iterating unnecessarily
     - define variables --- `x` acts as an **"anchor"" pointer**, holding one value at a time to sum up with two other values chosen by the other two pointers `y` and `z`
         - `y` and `z` act are set up like standard two pointers, but at one position after `x` and the last elem in array (respectively)
     - `while` loop
@@ -56,7 +57,7 @@ var threeSum = function(nums) {
     const sorted = nums.sort((a, b) => a - b);
     console.log(`Sorted array: `, sorted);
 
-    for (let x = 0; x < sorted.length; x++) {
+    for (let x = 0; x < sorted.length - 2; x++) {
         // for the first pointer (x, or "anchor" position), skip duplicates
         if (x > 0 && sorted[x] === sorted[x - 1]) continue;
 
@@ -88,6 +89,65 @@ var threeSum = function(nums) {
     }
 
     return result
+};
+```
+
+
+
+### 16. 3Sum Closest
+
+- **Similar** strategy --- **fixed "anchor" and two-pointer sweep** of remaining elems like 3Sum
+- But, **not** returning triplets / unique elements. Here, just **comparing sums** --- which means **you don't need some of the logic from regular 3Sum that skips duplicates** (it's unnecessary / doesn't affect outcome).
+- Sort the array
+- Initialize `closeSum` (the closest sum to target) --- easier to just initialize it to the first 3 elems
+- `for` loop
+    - note the conditional set up --> `a < sorted.length - 2`, which saves some unnecessary iterating as `a` gets closer to end of array
+    - two pointers `b` and `c`
+    - `while` loop inside
+        - calculate the sum of 3 elems --- elem at current "anchor" index (`a`), and elems at indices of two pointers (`b` and `c`)
+        - re-assign `closeSum`'s value to `currSum` if it less (i.e., closer to the `target`)
+            - use `Math.abs` for accurate comparison
+        - early return if it matches `target`
+        - otherwise, increment two pointers
+- return `closeSum` at end
+
+```js
+var threeSumClosest = function(nums, target) {
+    // sort the array, account for duplicates
+    const sorted = nums.sort((a,b) => a - b);
+
+    // initialize closest sum variable -- start with first three values
+    let closeSum = sorted[0] + sorted[1] + sorted[2];
+
+    // iterate over array
+    for (let a = 0; a < sorted.length - 2; a++) {
+        // skip duplicates for a bit of optimization
+        if (a > 0 && sorted[a] === sorted[a - 1]) continue;
+        
+        // initialize two pointers
+        let b = a + 1;
+        let c = sorted.length - 1;
+
+        // sweep the remaining elems --- two pointer approach
+        // reassign closeSum if currSum is less than
+        while (b < c) {
+            const currSum = sorted[a] + sorted[b] + sorted[c];
+            // compare sums and re-assign if closer to target
+            if (Math.abs(target - currSum) < Math.abs(target - closeSum)) {
+                closeSum = currSum;
+            } 
+                // early return if currSum matches target
+                if (currSum === target) {
+                    return currSum
+                } else if (currSum < target) {
+                    b++;
+                } else {
+                    c--;
+                }
+        }
+    }
+
+    return closeSum
 };
 ```
 
