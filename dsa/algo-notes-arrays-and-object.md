@@ -109,6 +109,34 @@ var rotate270ver2 = function(matrix) {
 
 
 
+### 53. Maximum Subarray
+
+- Strategy: iteration and calculate/compare sums
+- Idea of **Kadane's algo** is implicit here --- you don't add values to the sum which don't contribute (see logic inside the loop)
+- Initialize variables outside of loop to hold `maxSum` and `currSum` (which is used inside loop)
+- iterate w/ `for` loop
+  - compare `nums[i]` (current elem being looked at) to `currSum + nums[i]` (equivalent to enlarging/adding a new elem to the subarray)
+  - re-assign `maxSum` accordingly and return after loop
+
+```js
+ // input: array. output: number (largest sum)
+ // tracking a sum --- you do not have to track subarray elems, size, etc.
+var maxSubArray = function(nums) {
+    let maxSum = nums[0];
+    let currSum = nums[0];
+
+    for (let i = 1; i < nums.length; i++) {
+        // re-assign current sum to greater number --- `currSum + nums[i]` represents a subarray with a new elem added to it
+        // if nums[i] is ever selected, it in effect means a new subarray is being looked at 
+        currSum = Math.max(nums[i], currSum + nums[i]);
+        maxSum = Math.max(currSum, maxSum);
+    }
+    return maxSum;
+};
+```
+
+
+
 ### 242. Valid Anagram (LeetCode, **Structy.net** version below)
 
 - Traditional JS Objects
