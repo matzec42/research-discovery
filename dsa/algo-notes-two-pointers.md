@@ -33,8 +33,8 @@ var isPalindrome = function(x) {
 
 ### 15. 3Sum
 
-- Approach: **Two pointers** w/ **sorting** to handle duplicates
-- Sort the array, which places possible duplicates next to one another (problem constraint is that elements must add up to 0 and be at different indices)
+- Approach: **"Anchor" pointer** with a **two pointer sweep**, and **sorting** to handle duplicates
+- **FIRST, sort** the array, which places possible duplicates next to one another (problem constraint is that **elements must add up to 0** and be at **different indices**)
 - `for` loop over sorted array
     - conditional check --- if elem before current one is the same (i.e., a duplicate), then `continue` (saves unnecessary iteration)
     - for loop set up --- `x < sorted.length - 2` so that you're not iterating unnecessarily
