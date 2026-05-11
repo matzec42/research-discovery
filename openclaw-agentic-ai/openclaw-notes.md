@@ -18,3 +18,19 @@
 - Piping ( `|` ) to create a chain / series of executed tasks:
     - curl to API --> process the response (jq, -r '.choices[0].message.content') --> run `bash` command
 - Dangerous and never recommended to run a response without showing it to user, sandboxing the execution of agent (e.g., container), validating commands (in production level systems, things like human-in-the-loop, e.g.) before they are run
+
+
+
+### Challenge 3 - JS Agent
+
+- Writing it as JS code (Bun is run-time environment)
+- Flow:
+    - `POST` request to the API (native JS `fetch`) --> parse response --> print command (PoC) and run `bash` command (` await Bun.$`sh -c ${cmd}` `)
+- Better / paid models will yield more consistent results, as would prompt refining...but with the free model, it does (mostly) take screenshots
+    - variability with which screen (multi-monitor set up), file name, where it saves it (e.g., Desktop, in the project file directory, or elsewhere)
+
+
+
+### Challenge 4 - 
+
+- 
