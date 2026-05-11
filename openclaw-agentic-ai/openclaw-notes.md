@@ -8,4 +8,13 @@
 
 2. `messages` field as an array suggests memory---as conversations continue, model consumes them for context/improved responses with more interactions. Logging for tracing/history as well (?)
 
-3. `choices` as an array---
+3. `choices` as an array---thinking easier/more consistent access to and handling of data (arrays/objects are better than straight strings)
+
+
+
+### Challenge 2 - Pipe and Execute
+
+- Some nice review / new commands for CLI
+- Piping ( `|` ) to create a chain / series of executed tasks:
+    - curl to API --> process the response (jq, -r '.choices[0].message.content') --> run `bash` command
+- Dangerous and never recommended to run a response without showing it to user, sandboxing the execution of agent (e.g., container), validating commands (in production level systems, things like human-in-the-loop, e.g.) before they are run
