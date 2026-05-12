@@ -31,6 +31,33 @@
 
 
 
-### Challenge 4 - 
+### Challenge 4 - While loop Agent
 
-- 
+- **Memory** -- instantiate an array to hold a system prompt, and populate it with user prompts and responses from the AI
+    - History acts as context and improves subsequent interactions
+- `while` loop creates the **iterative** characteristic of AI
+    - w/ the memory (saving successes, error messages, etc.), it can consume this and produce better responses
+    - the `break` --- exits upon success
+    - the `catch` block creates the **retrying** behavior
+- The **feedback** loop when errors occur also is a characteristic of core LLM architecture
+
+
+
+### Challenge 5 - Tool Calling
+
+- Define a `BASH_TOOL` --- before, the agent itself was the command. Now, the model is acting like an orchestrator/planner
+    - Tells the model that it can invoke functions (this variable uses plain language to define a bash command function)
+    - It's included on the POST request ---> changes the behavior and capabilities of the API
+- Still utilizing history as **memory** and to improve responses (**feedback loop** with the `while` loop)
+- Model still iterates / retries
+    - But now, it's a **"reasoning"** loop --- not just retrying, but:
+        - Thinks --> use tool --> observe result --> think again --> use another tool --> observe result --> eventually answer user
+        - i.e., closer to a real agent
+- Tool messages get pushed into the history/memory as well
+    - feeds shell output back to the model as structured tool output
+    - tools are how the AI "sees" execution results
+    - converation history starts with system, then goes something like this:
+        - user --> assistant (tool call) --> tool (result) --> assistant (tool call) --> tool (result) --> assistant (final answer)
+    - the model can also distinguish between user/human, assistant reasoning, and tool outputs (separation of data)
+
+- NOTE: changed out model from `openrouter/free` due to too many errors/agent crashes. Likely because free models aren't as sophisticated and can't handle tooling. You can search for free models that do so on OpenRouter (e.g., using`openai/gpt-oss-20b:free` improved it considerably).
