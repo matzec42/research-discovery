@@ -127,13 +127,35 @@ var maxSubArray = function(nums) {
 
     for (let i = 1; i < nums.length; i++) {
         // re-assign current sum to greater number --- `currSum + nums[i]` represents a subarray with a new elem added to it
-        // if nums[i] is ever selected, it in effect means a new subarray is being looked at 
+        // if nums[i] is ever selected, it in effect means a new subarray is being looked at (i.e., analogous to moving a sliding window)
         currSum = Math.max(nums[i], currSum + nums[i]);
         maxSum = Math.max(currSum, maxSum);
     }
     return maxSum;
 };
 ```
+
+- same strategy, coded differently (see Austin F.'s HH, early 2025)
+
+```js
+const kadanesMaxSubarray = (arr) => {
+  // initialize variables to store current and max sums. assign maxSum to -Infinity, as values in array (and max sum) could be negative
+  let currSum = 0;
+  let maxSum = -Infinity;
+  // iterate over array
+  for (const el of arr) {
+    // update current sum by adding current element to it
+    currSum += el;
+    // update maxSum w/ larger of two values --- existing maxSum or currSum
+    maxSum = Math.max(maxSum, currSum);
+    // if a currSum is ever negative, then maxSum never benefits from adding negative values as search for the max
+    // resetting currSum is roughly like adjusting the left boundary of a sliding window inward (i.e., adjusting the starting index of the subarray being considered)
+    if (currSum < 0) currSum = 0;
+  }
+  return maxSum;
+}
+```
+
 
 
 

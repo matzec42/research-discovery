@@ -53,9 +53,9 @@
     - But now, it's a **"reasoning"** loop --- not just retrying, but:
         - Thinks --> use tool --> observe result --> think again --> use another tool --> observe result --> eventually answer user
         - i.e., closer to a real agent
-- Tool messages get pushed into the history/memory as well
+- **Tooling** --- tool messages get pushed into the history/memory as well
     - feeds shell output back to the model as structured tool output
-    - tools are how the AI "sees" execution results
+    - tools + memory are how the AI "sees" execution results
     - converation history starts with system, then goes something like this:
         - user --> assistant (tool call) --> tool (result) --> assistant (tool call) --> tool (result) --> assistant (final answer)
     - the model can also distinguish between user/human, assistant reasoning, and tool outputs (separation of data)
