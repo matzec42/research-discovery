@@ -1,6 +1,6 @@
 # Computing in Python I: Fundamentals and Procedural Programming
 
-### **NOTE**: numbering is unit, chapter, lesson (e.g., 1.1.7 => Unit 1, Chapter 1, Lesson 7: Python) 
+### **NOTE**: numbering is unit, chapter, lesson, video segment (e.g., 1.1.7.0 => Unit 1, Chapter 1, Lesson 7: Python, 0th video) 
 
 ## Chapter 1.1.: Computing
 
@@ -51,5 +51,57 @@
 
 
 ## Chapter 1.3: Debugging
+
+- Good review
+- Compilation errors --- syntax, name, type errors
+- Runtime errors --- divide by zero, null errors (cod w/ variables that has no value), memory (code exceeds your PC's memory)
+
+- Types of Errors in Python (1.3.3)
+    - SyntaxError
+    - NameError
+    - TypeError
+    - AttributeError (i.e., when code asks for info about a variable that doesn't make sense)
+    - "Traceback" starts any error message in the terminal or console in Python
+
+- Basic Debugging (1.3.4)
+    - Print debugging --- use `print` statements to show you parts of the code's flow
+    - Scope debugging --- add `print` statements to check status of variables in the program at diff stages to see how they're changing
+    - Rubber ducking --- explaining the problem from scratch often reveals the solution
+
+- Basic Debugging in Python (1.3.5)
+    - Scope debugging example --- average grades in class. (His term --- essentially, chunking)
+
+- Advanced Debugging (1.3.6)
+    - "Good to know about" --- step-by-step, variable visualization, in-line debugging
+
+- Fun resource: The CS1301.com Debugging guide (http://cs1301.com/debugging/)
+
+
+## Chapter 2.1: Procedural Programming
+
+- Procedural --- giving instructions to the computer to carry out an action(s)
+
+- Functional Programming (2.1.1)
+    - Function: A segment of code that performs a specific task, sometimes taking some input and sometimes returning some output
+    - Method: A function that is part of a class in object-oriented programming (but colloquially, often used interchangeably with function)
+
+- Object-Oriented Programming (2.1.1.2)
+    - A programming paradigm where programmers define custom data types that have custom methods embedded within them
+
+- Event-Driven Programming (2.1.1.3)
+    - A type of programming where the program generally awaits and reacts to events rather than running code linearly
+
+- Data Types, Variables, Logical (`==`, `>`, `<`, `>=`, `<=`, `and`, `or`, `not`) & Mathematical Operators overviews (2.1.2)
+
+- Comments and Documentation (2.1.3), in Python (2.1.4)
+    - Use `#`
+    - In-line
+    - Code block style (no special syntax for this like in JS with `/*... */`)
+    - Use intuitive, informative variable naming
+
+- Neat supplemental for writing scripts - https://shrew.app/lessons/introduction/ 
+
+
+## Chapter 2.2.: Variables
 
 - 
