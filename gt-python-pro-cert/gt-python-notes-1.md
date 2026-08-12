@@ -104,4 +104,30 @@
 
 ## Chapter 2.2.: Variables
 
-- 
+- Review
+- Unlike JS, no keyword needed for variable assignment
+- Underscore (_) is convention for Python
+- With **Booleans**, remember to **capitalize** `True` and `False`
+- Re-assignment is easy (2.2.2.2)
+- "Self-documenting code" --- i.e., name your variables intelligently (indicate data it holds, type perhaps)
+- Variable names --- no spaces, start with a letter, avoid keywords, use underscores
+- RE: null pointer exception --- sort of like error; e.g., when a value hasn't been assigned to a variable
+
+- Basic Data Types (2.2.5)
+     - Integers (whole numbers)
+     - Real numbers
+     - Characters
+     - Strings
+     - Booleans
+
+- Data Types in Python (2.2.6)
+    - Recall that it's a **weakly typed** language (like JS)
+    - Contrast w/ strongly typed (e.g. Java, C++ or even TS) where assigning a type is a separate and mandatory step
+
+    - Common Types (2.2.6.1 - 2)
+        - int, float, str, bool --- `class` is in output when you use the built-in `type()` function
+    - Mixing Types (2.2.6.3)
+        - Interesting behavior when multiplying different primitives (e.g., string * Boolean, float or int * string, etc.; only float * string throws an error)
+
+- Interlude: None and None Type
+    - 
