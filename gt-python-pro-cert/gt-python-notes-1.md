@@ -184,6 +184,7 @@
         ```py
         import keyword
         print(keyword.kwlist)
+        
         ```
     - Importing Libraries: `import`, `from`
     - Logical Operators: `and`, `is`, `not`, `or`, `False`, `True`, `None`. Covered in Chapter 2.3.
@@ -192,4 +193,35 @@
     - Object-Oriented Programming Syntax: `class`. Covered in Chapter 5.1.
     - Error Handling: `except`, `finally`, `raise`, `try`. Covered in Chapter 3.5.
 
-    
+    - SyntaxError when you misuse (e.g., naming a variable w/ a keyword)
+
+- Dot Notation (2.2.9)
+    - Example: `my_date = date.today()` -> `my_date.year = 2026 | mydate.month = 6  | my_date.day = 2` . Same with `datetime.datetime.now()`, has `.hour`, `.minute`, `.second` properties
+
+
+## Chapter 2.3: Logical Operators
+
+- Mathematical Operators (2.3.1.1) --- `+`, `-`, `*`, `/`, `%`, and others (similar to JS)
+- Logical Operators (2.3.1.2) --- `=`, `>=`, `<=`, etc.
+    - Relations Operators: if things are true.
+    - Boolean Operators: check the combination of multiple relational operators
+
+- Numeric Comparisons (2.3.2.1)
+- Operators used with conditionals
+- Non-Numeric Equality Comparisons (i.e., are two things 'equal' --- are the values the same, are they of the same type if checking for data type, etc.)
+- Set Operators (2.3.2.3) - seeing if a value is a member of a set of multiple values (e.g., substring in a string, a value in a list)
+
+- Numeric Equality Comparisons (2.3.3.1 - 2)
+    - `=` is assignment, `==` compares/checks for equality
+    - can write expressions w/ variables in a `print()` statement, get evaluated and printed at run time
+
+- Non-Numeric Equality Comparisons (2.3.3.3)
+    - e.g. comparing strings
+    - alphabetical comparisons (e.g., a string starting with letter `h` is "less than" string starting with `w`)
+        - odd quirk: capital letters are sorted as "less" than lowercase letters (e.g., `a = "Bob"` and `b = "bob"` | `print(a > b)`) | `False`
+
+- Set Operators (2.3.3.4)
+    - Unlike other languages that use a function or method, keyword **`in`** is a built-in way to check if substring is in a larger string, strings and lists hold a particular value
+    - It is **case-sensitive** (will return False if casing doesn't match). And `""` (empty string) returns True.
+
+- 
