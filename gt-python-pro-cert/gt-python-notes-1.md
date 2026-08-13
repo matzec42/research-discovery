@@ -157,7 +157,7 @@
         ## output -> <class 'int'> <class 'str'>
         ```
 
-        - Python will implicitly infer/coerce type to string in typical/basic cases:
+    - Python will implicitly infer/coerce type to string in typical/basic cases:
         ```py
         from datetime import date
         my_date = date.today()
@@ -180,4 +180,16 @@
          - With `bool()`, generally any string will be `True`, but 0 or an empty string will result in `False`
 
     - Reserved Keywords in Python (2.2.8)
-        - .
+        - Can actually see them all with a command:
+        ```py
+        import keyword
+        print(keyword.kwlist)
+        ```
+    - Importing Libraries: `import`, `from`
+    - Logical Operators: `and`, `is`, `not`, `or`, `False`, `True`, `None`. Covered in Chapter 2.3.
+    - Control Structures: `as`, `break`, `continue`, `if`, `elif`, `else`, `for`, `in`, `while`, `pass`, `with`. Mostly covered in unit 3.
+    - Functions: `def`, `return`. Covered in Chapter 3.4.
+    - Object-Oriented Programming Syntax: `class`. Covered in Chapter 5.1.
+    - Error Handling: `except`, `finally`, `raise`, `try`. Covered in Chapter 3.5.
+
+    
