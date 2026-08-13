@@ -106,7 +106,7 @@
 
 - Review
 - Unlike JS, no keyword needed for variable assignment
-- Underscore (_) is convention for Python
+- Underscore ( _ ) is convention for Python
 - With **Booleans**, remember to **capitalize** `True` and `False`
 - Re-assignment is easy (2.2.2.2)
 - "Self-documenting code" --- i.e., name your variables intelligently (indicate data it holds, type perhaps)
@@ -129,5 +129,55 @@
     - Mixing Types (2.2.6.3)
         - Interesting behavior when multiplying different primitives (e.g., string * Boolean, float or int * string, etc.; only float * string throws an error)
 
-- Interlude: None and None Type
-    - 
+- Interlude: `None` and `None` Type
+    - a.k.a, **`null`** in Python
+    - Variable exists, but has no value
+    - Another example of `None` at work:
+
+    ```py
+    a = "Hello"
+    b = "world"
+    c = a + b
+    d = print(c)
+    print(d)
+    ```
+
+    - Console/output: `Helloworld` and `None` (the `print(c)` statement actually logs the string, but `d`'s value isn't assigned to anything, so it's given `None`)
+
+- Type Conversions (2.2.7)
+
+    - Converting a number to string type with `str()`
+
+        ```py
+        my_number = 5
+        print(type(my_number))
+        my_number_as_string = str(my_number)
+        print(type(my_number_as_string))
+
+        ## output -> <class 'int'> <class 'str'>
+        ```
+
+        - Python will implicitly infer/coerce type to string in typical/basic cases:
+        ```py
+        from datetime import date
+        my_date = date.today()
+        print("Today's date: ", my_date)
+        ```
+
+        ```py
+        ## example where it has to be done manually: string concatenation (see the print statement)
+        ## without the str() conversion of the date, Python would throw a TypeError -> can't infer date as string type implicitly
+        from datetime import date
+        my_date = date.today()
+        my_date_as_string = str(my_date)
+        print("Today's date: " + my_date)
+
+    - Functions can be used inline (generally, Python runs/evaluates expressions from innermost to outermost)
+    
+    - Converting from Strings
+         - If strings are made up of only digits, then `int()` and `float()` will convert them into integers and floats (decimals)
+         - If given a float, `int()` will throw a `ValueError` since it can't convert a decimal into a whole number (integer)
+         - With `bool()`, generally any string will be `True`, but 0 or an empty string will result in `False`
+
+    - Reserved Keywords in Python (2.2.8)
+        - .
