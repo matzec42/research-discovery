@@ -214,14 +214,37 @@
 - Numeric Equality Comparisons (2.3.3.1 - 2)
     - `=` is assignment, `==` compares/checks for equality
     - can write expressions w/ variables in a `print()` statement, get evaluated and printed at run time
-
 - Non-Numeric Equality Comparisons (2.3.3.3)
     - e.g. comparing strings
     - alphabetical comparisons (e.g., a string starting with letter `h` is "less than" string starting with `w`)
-        - odd quirk: capital letters are sorted as "less" than lowercase letters (e.g., `a = "Bob"` and `b = "bob"` | `print(a > b)`) | `False`
-
+        - odd quirk: capital letters are sorted as "less" than lowercase letters (e.g., `a = "Bob"` and `b = "bob"`  ->  `print(a > b)`  ->  `False`)
 - Set Operators (2.3.3.4)
     - Unlike other languages that use a function or method, keyword **`in`** is a built-in way to check if substring is in a larger string, strings and lists hold a particular value
     - It is **case-sensitive** (will return False if casing doesn't match). And `""` (empty string) returns True.
+- Relational Operators (2.3.3.3 - 5)
 
+- Boolean Operators (2.3.3, 2.3.4, 2.3.5)
+    - `and` is useful (JS equivalent is `&&`)
+    ```py
+    if (on_list and in_stock):
+        ## do something
+    ```
+    - `or` (JS equivalent is `||`)
+    - `not` (JS equivalent is bang operator, e.g. `!fruit_is_rotten`)
+    
+    - Combining Boolean Operators (2.3.4.4)
+        - Recall that `and` (like &&) requires both statements to be `True`
+        - In an `or` statement, either can be true to result in `True`
+    -  Simplifying Conditionals (2.3.5.5)
+- Truth Tables (2.3.6)
+    - a way to visualize/map out Boolean comparison combinations
+
+    ![Truth table for Booleans](/assets/truth-tables-pic.png)
+
+- Boolean operators are **commutative** and **distributive** (kind of like math)
+    - Ex:
+        - The value of `A and (B or C)` is equivalent to the value of `(A and B) or (A and C)`
+- De Morgan's Law (And -> Or)
+    - Ex:
+         - The value of `not (A and B)` is equivalent to value of `not A or not B`
 - 
