@@ -247,4 +247,22 @@
 - De Morgan's Law (And -> Or)
     - Ex:
          - The value of `not (A and B)` is equivalent to value of `not A or not B`
+
+## Chapter 2.4: Mathematical Operators
+
+- Same/similar operators: `+`, `-`, `*`, `/`, `%`, and others (similar to JS)
+- `=` is for assignment
+- Additional operators:
+    - `//` is for **floor division** --- rounds down to the nearest whole number/integer, gets rid of decimal
+    - `**` is exponentiation
+- With division, Python returns **floats** (decimals) in event of remainders automatically
+- Modulus (`%`) operator returns remainder, same as JS
+- If regular and floor division are in the same line, Python operates on them as they're encountered, left-to-right
+
+- Self-assignment (when a variable's value is used in a calculation) and incrementing (e.g., a counter) (2.4.3 and 2.4.4)
+
+- Integers and Floats (2.4.6.1)
+    - usually, operations with an int and a float results in a float
+    - exception would be floor division (gets rid of decimal)
+
 - 
